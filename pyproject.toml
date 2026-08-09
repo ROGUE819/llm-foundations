@@ -6,13 +6,16 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "anthropic>=0.121.0",
+    "openai>=2.53.0",
     "pydantic>=2.13.4",
     "pydantic-settings>=2.15.0",
+    "pyyaml>=6.0.3",
     "rich>=15.0.0",
 ]
 
 [project.scripts]
-llm-foundations = "llm_foundations:main"
+chat = "llmcore.cli.chat:main"
+lab = "llmcore.cli.lab:main"
 
 [build-system]
 requires = ["uv_build>=0.12.3,<0.13.0"]

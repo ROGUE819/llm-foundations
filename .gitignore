@@ -6,6 +6,33 @@ __pycache__/
 # C extensions
 *.so
 
+# Secrets
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Project
+sessions/
+*.log
+
 # Distribution / packaging
 .Python
 build/
