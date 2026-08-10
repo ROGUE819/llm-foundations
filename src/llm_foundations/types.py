@@ -1,7 +1,6 @@
 from enum import StrEnum
 from typing import Literal
-from pydantic import BaseModel, Field, computed_field, field_validator
-from pydantic_core import ConfigDict
+from pydantic import BaseModel, Field, computed_field, field_validator, ConfigDict
 
 class Provider(StrEnum):
     GEMINI = "gemini"
@@ -23,7 +22,6 @@ class Usage(BaseModel):
     output_tokens: int = Field(..., ge=0)
 
     @computed_field
-    @property
     def total_tokens(self) -> int:
         return self.input_tokens + self.output_tokens
 

@@ -14,8 +14,8 @@ dependencies = [
 ]
 
 [project.scripts]
-chat = "llmcore.cli.chat:main"
-lab = "llmcore.cli.lab:main"
+chat = "llm_foundations.cli.chat:main"
+lab = "llm_foundations.cli.lab:main"
 
 [build-system]
 requires = ["uv_build>=0.12.3,<0.13.0"]
