@@ -32,6 +32,7 @@ class RunResult(BaseModel):
     usage: Usage | None = None
     model: str
     provider: Provider
+    ttft_ms: float | None = None
     latency_ms: float = Field(..., ge=0)
     finish_reason: str | None = None
 
@@ -43,3 +44,9 @@ class RunResult(BaseModel):
     @property
     def was_truncated(self) -> bool:
         return self.finish_reason == "length"
+
+class TextDelta(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    text: str
+
+StreamEvent = TextDelta | RunResult
