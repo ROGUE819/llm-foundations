@@ -125,24 +125,44 @@ class LLMClient:
 
 import time
 
-async def _smoke_stream() -> None:
-    s = get_settings()
-    c = LLMClient(s.provider(), s.llm_max_tokens, s.llm_temperature)
+# async def _smoke() -> None:
+#     s = get_settings()
+#     c = LLMClient(s.provider(), s.llm_max_tokens, s.llm_temperature)
+#     ledger = SessionLedger()
+#     for prompt in ["Hi", "Name three Himalayan passes.", "Explain acclimatization briefly"]:
+#         r, cost = await c.complete([Message(role="user", content=prompt)])
+#         ledger.record(r, cost)
 
-    prompt = "Explain altitude acclimatization in detail: physiology, timeline, AMS symptoms, prevention, and treatment. Be thorough."
+#         usage_str = (
+#             f"{r.usage.input_tokens} in / {r.usage.output_tokens} out"
+#             if r.usage else "!! NO USAGE"
+#         )
+#         cost_str = (
+#             f"${cost.billed_usd:.4f} (would be ${cost.shadow_usd:.4f})"
+#             if cost else "$?.???? unpriced"
+#         )
+#         print(f"{usage_str} · {cost_str} · {r.latency_ms:.0f}ms")
 
-    last = time.perf_counter()
-    gaps: list[float] = []
+#     print(f"\nSession: {ledger.summary()}")
 
-    async for event in c.stream([Message(role="user", content=prompt)]):
-        if isinstance(event, TextDelta):
-            now = time.perf_counter()
-            gaps.append((now - last) * 1000)
-            last = now
-            print(event.text, end="", flush=True)
-        else:
-            print(f"\n\n{event.usage.output_tokens} out · TTFT {event.ttft_ms:.0f}ms · total {event.latency_ms:.0f}ms")
-            print(f"deltas: {len(gaps)} · first gap {gaps[0]:.0f}ms · median {sorted(gaps)[len(gaps)//2]:.1f}ms · max {max(gaps):.0f}ms")
+# async def _smoke_stream() -> None:
+#     s = get_settings()
+#     c = LLMClient(s.provider(), s.llm_max_tokens, s.llm_temperature)
 
-if __name__ == "__main__":
-    asyncio.run(_smoke_stream())
+#     prompt = "Explain altitude acclimatization in detail: physiology, timeline, AMS symptoms, prevention, and treatment. Be thorough."
+
+#     last = time.perf_counter()
+#     gaps: list[float] = []
+
+#     async for event in c.stream([Message(role="user", content=prompt)]):
+#         if isinstance(event, TextDelta):
+#             now = time.perf_counter()
+#             gaps.append((now - last) * 1000)
+#             last = now
+#             print(event.text, end="", flush=True)
+#         else:
+#             print(f"\n\n{event.usage.output_tokens} out · TTFT {event.ttft_ms:.0f}ms · total {event.latency_ms:.0f}ms")
+#             print(f"deltas: {len(gaps)} · first gap {gaps[0]:.0f}ms · median {sorted(gaps)[len(gaps)//2]:.1f}ms · max {max(gaps):.0f}ms")
+
+# if __name__ == "__main__":
+#     asyncio.run(_smoke_stream())
